@@ -19,7 +19,7 @@ $(document).ready(function() {
     pizzas.map(pizza => {
         cards = cards + `
         <div class="col">
-            <div class="card text-center">
+            <div class="card text-center" id="card__container">
                 <img src=${pizza.img} class="card-img-top" alt="${pizza.description}">
                 <div class="card-body">
                     <h5 class="card-title">${pizza.name}</h5>
@@ -34,6 +34,17 @@ $(document).ready(function() {
 
     $("#productos__container").append(cards)
     $(document).on("click", ".btn.btn-secondary", (event) => {
+
+
+        //animacion de boton;
+        var backColor = $(event.target).css("backgroundColor");
+        $(event.target).animate({ backgroundColor: 'green' }, { duration: 0, queue: true })
+        $(event.target).delay(200)
+        $(event.target).animate({ backgroundColor: backColor }, { duration: 0, queue: true });
+
+
+
+        //agregar al carrito
         cart.push(event.target.id)
         localStorage.setItem('cart', JSON.stringify(cart));
         localStorage.setItem('price', (parseFloat(pizzas[event.target.id].price) + parseFloat(localStorage.getItem('price'))) || parseFloat(pizzas[event.target.id].price));
@@ -41,16 +52,26 @@ $(document).ready(function() {
         $("#contador__carrito").html(cart.length)
     })
 
-    $(document).on("click", "#carrito__borrar", (event) => {
-            localStorage.removeItem('cart');
-            localStorage.removeItem('price');
-            $("#contador__carrito").html(cart.length)
-        })
-        // // Elimina todos los elementos
-        // localStorage.clear();
-        // localStorage.removeItem('cart');
+    $(document).on("click", "#carrito__borrar", () => {
+        localStorage.removeItem('cart');
+        localStorage.removeItem('price');
+        $("#contador__carrito").html(cart.length)
+    })
 
-    $(document).on("click", "#carrito__pedir", (event) => {
+    $(document).on("click", "#carrito__pedir", () => {
         alert("Pedido realizado, el total es $" + (localStorage.getItem('price') || 0))
     })
+
+
+    // ANIMATE CARDS
+
+    $(function() {
+
+        $(".card").toArray().map((element, index) => {
+            $(element).hide().delay(index * 200).fadeIn({ queue: true, duration: 1200 }).animate({ top: "-10px" }, { duration: 1200, queue: false });
+        })
+    });
+
+
+
 })
