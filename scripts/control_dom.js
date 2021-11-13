@@ -63,7 +63,7 @@ $(document).ready(function() {
     })
 
 
-    // ANIMATE CARDS
+    // ANIMAR CARDS
 
     $(function() {
 
