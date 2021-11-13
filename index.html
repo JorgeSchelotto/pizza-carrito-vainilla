@@ -21,27 +21,29 @@
     <header class="header__menu">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="bg-dark">
             <div class="container">
-                <div class="flex__container">
-                    <div>
-                        <a class="navbar-brand" href="../index.html">La Gran Vegana</a>
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#ToggleNadvar" aria-controls="ToggleNadvar" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#ToggleNadvar" aria-controls="ToggleNadvar" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
-                        </button>
-                    </div>
+                </button>
 
-                    <div class="collapse navbar-collapse" id="ToggleNadvar">
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li class="nav-item">
-                                <a class="nav-link" href="./index.html">MENU</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="./index.html">NOSOTRXS</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="./html/contacto.html">CONTACTO</a>
-                            </li>
-                        </ul>
-                    </div>
+                <div class="collapse navbar-collapse" id="ToggleNadvar">
+                    <a class="navbar-brand" href="../index.html">La Gran Vegana</a>
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="./index.html">MENU</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./index.html">NOSOTRXS</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./html/contacto.html">CONTACTO</a>
+                        </li>
+
+                    </ul>
+                    <form class="d-flex">
+
+                        <button class="btn btn-outline-success m-1" type="submit" id="carrito__pedir"><span class="m-1" id="contador__carrito"></span> Pedir</button>
+                        <button class="btn btn-outline-danger m-1" type="submit" id="carrito__borrar">Borrar Pedido</button>
+                    </form>
                 </div>
             </div>
         </nav>
