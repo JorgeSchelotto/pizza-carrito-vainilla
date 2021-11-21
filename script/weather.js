@@ -14,9 +14,7 @@ $(document).ready(function() {
         $("#clima").html(contenidoHtml);
     }
 
-    $(document).on("click", "#input__ciudad", (event) => {
-        event.preventDefault();
-        let ciudad = $("#select__ciudad").val();
+    let getClima = function(ciudad) {
         $.ajax({
             url: "https://api.openweathermap.org/data/2.5/weather",
             type: "GET",
@@ -43,6 +41,14 @@ $(document).ready(function() {
                 console.log(error);
             }
         });
+    };
+
+    // EVENTO CLICK
+    $(document).on("click", "#input__ciudad", (event) => {
+        event.preventDefault();
+        let ciudad = $("#select__ciudad").val();
+        getClima(ciudad);
+
 
 
     });
