@@ -7,7 +7,6 @@
 
 # Local History for Visual Studio Code
 .history/
-scripts/firebase/**
 **/firebase.json
 **/serviceAccount.json
 
