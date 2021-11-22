@@ -8,6 +8,9 @@
 # Local History for Visual Studio Code
 .history/
 scripts/firebase/**
+**/firebase.json
+**/serviceAccount.json
+**/config.js
 
 # It's better to unpack these files and commit the raw source because
 # git has its own built in compression methods.

@@ -10,20 +10,10 @@ firebase.initializeApp(firebaseConfig);
 
 // Initialize Firestore
 const db = firebase.firestore();
-
-// try {
+//Consulta firestore
 var productos = new Productos(db, 'pizzas');
 const pizzas = await productos.getProductos();
-// } catch (e) {
-//     console.log(e);
-//     const pizzas = [
-//         { id: 0, name: 'Muzarela', price: 800, description: 'Muzarela', img: 'https://www.placecage.com/c/200/200' },
-//         { id: 1, name: 'Muzarela Vegana', price: 800, description: 'muzarelaVegana', img: 'https://www.placecage.com/c/200/200' },
-//         { id: 2, name: 'Verduras', price: 1000, description: 'verduras', img: 'https://www.placecage.com/c/200/200' },
-//         { id: 3, name: 'Napolitana', price: 900, description: 'Napolitana', img: 'https://www.placecage.com/c/200/200' },
-//         { id: 4, name: 'Margarita ', price: 900, description: 'Margarita', img: 'https://www.placecage.com/c/200/200' }
-//     ]
-// }
+
 
 
 
@@ -58,6 +48,9 @@ pizzas.map(pizza => {
 
 
 $("#productos__container").append(cards)
+
+
+// Agrego los eventos de click a los botones de agregar al carrito
 $(document).on("click", ".btn.btn-secondary", (event) => {
 
 
@@ -70,20 +63,29 @@ $(document).on("click", ".btn.btn-secondary", (event) => {
 
 
     //agregar al carrito
-    cart.push(event.target.id)
+    var id = event.target.id;
+    cart.push(id)
     localStorage.setItem('cart', JSON.stringify(cart));
-    localStorage.setItem('price', (parseFloat(pizzas[event.target.id].price) + parseFloat(localStorage.getItem('price'))) || parseFloat(pizzas[event.target.id].price));
+    // Obtengo precio del producto
+    let price = parseFloat(pizzas.find(o => o.id === id).price) || 0;
+    // Obtengo el precio total
+    localStorage.setItem('price', (price + parseFloat(localStorage.getItem('price'))) || price);
+    // Actualizo el contador de productos en el carrito
     console.log(localStorage.getItem('cart'))
     $("#contador__carrito").html(cart.length)
 })
 
 $(document).on("click", "#carrito__borrar", () => {
+    // Borro el carrito
     localStorage.removeItem('cart');
     localStorage.removeItem('price');
     $("#contador__carrito").html(cart.length)
 })
 
-$(document).on("click", "#carrito__pedir", () => {
+$(document).on("click", "#carrito__pedir", (e) => {
+    // Muesro el modal de pedido
+    e.preventDefault();
+
     alert("Pedido realizado, el total es $" + (localStorage.getItem('price') || 0))
 })
 
