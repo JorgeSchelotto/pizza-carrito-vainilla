@@ -1,6 +1,6 @@
 import Productos from './productos.js';
 import firebaseConfig from './firebase/config.js';
-// import serviceAccount from './firebase/serviceAccount.json';
+
 
 
 
