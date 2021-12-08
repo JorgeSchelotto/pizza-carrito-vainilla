@@ -7,14 +7,26 @@ import firebaseConfig from './firebase/config.js';
 // VARIABLES
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-
 // Initialize Firestore
 const db = firebase.firestore();
-//Consulta firestore
-var productos = new Productos(db, 'pizzas');
-const pizzas = await productos.getProductos();
+$('#awaiting').show();
+const getItems = async() => {
+    //Consulta firestore
+    var productos = new Productos(db, 'pizzas');
+    let prods = "";
+    try {
 
+        prods = await productos.getProductos();
+        console.log(prods)
+    } catch (error) {
+        console.log('Error al obtener los productos: ' + error);
+    } finally {
+        console.log('Finalizó la consulta');
+        $('#awaiting').hide();
+    }
 
+    return prods;
+}
 
 
 
@@ -29,7 +41,8 @@ var cards = '';
 
 
 // Creo las tarjetas de las pizzas con información de firebase
-console.log(pizzas)
+const pizzas = await getItems();
+console.log(pizzas);
 pizzas.map(pizza => {
     cards = cards + `
         <div class="col">
@@ -83,11 +96,22 @@ $(document).on("click", "#carrito__borrar", () => {
 })
 
 $(document).on("click", "#carrito__pedir", (e) => {
-    // Muesro el modal de pedido
-    e.preventDefault();
-
-    alert("Pedido realizado, el total es $" + (localStorage.getItem('price') || 0))
+    // Muestro el modal de pedido
+    $("#modal__pedido").modal('show');
+    // Obtengo el precio total
+    let price = parseFloat(localStorage.getItem('price')) || 0;
+    alert("Pedido realizado, el total es $" + price);
+    // Muestro el precio total
+    $("#modal__pedido__precio").html(price);
+    // Borro el carrito
+    localStorage.removeItem('cart');
+    localStorage.removeItem('price');
+    $("#contador__carrito").html(cart.length);
+    // Oculto el modal
+    $("#modal__pedido").modal('hide');
 })
+
+
 
 
 // ANIMAR CARDS
