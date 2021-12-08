@@ -40,9 +40,11 @@
 
                     </ul>
                     <form class="d-flex">
-
-                        <button class="btn btn-outline-success m-1" type="submit" id="carrito__pedir"><span class="m-1" id="contador__carrito"></span> Pedir</button>
-                        <button class="btn btn-outline-danger m-1" type="submit" id="carrito__borrar">Borrar Pedido</button>
+                        <!-- Button trigger modal -->
+                        <button class="btn btn-outline-success m-1" type="button" id="carrito__detalle" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <span class="m-1" id="contador__carrito"></span> Pedido</button>
+                        <!-- Button delete cart -->
+                        <button class="btn btn-outline-dark m-1" type="button" id="login__account">Log In</button>
                     </form>
                 </div>
             </div>
@@ -54,8 +56,51 @@
             <h1>PRODUCTOS</h1>
         </div>
 
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Detalle de su pedido</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="table-responsive">
+
+                            <table class="table table-sm table-borderless table-hover">
+                                <caption>Su Pedido</caption>
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Cantidad</th>
+                                        <th scope="col">Nombre</th>
+                                        <th scope="col">Precio</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tabla__pedido"></tbody>
+                                <tfoot>
+                                    <tr class="table-dark">
+                                        <td colspan="2">Total</td>
+                                        <td id="total__pedido"></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-outline-danger m-1" type="submit" data-bs-dismiss="modal" id="carrito__borrar">Borrar Pedido</button>
+                        <button type="button" class="btn btn-outline-primary m-1" id="carrito__pedir">COMPRAR</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTOS -->
         <section class="container">
+            <!-- Se muestra mientras se espera firebase -->
             <span id="awaiting" style="display:none">Awaiting....</span>
+            <!-- Seccion para cargar los productos -->
             <div class="row row-cols-1 row-cols-md-4 g-4" id="productos__container">
             </div>
         </section>

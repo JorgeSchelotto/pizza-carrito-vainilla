@@ -4,6 +4,8 @@ import firebaseConfig from './firebase/config.js';
 
 
 
+
+
 // VARIABLES
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
@@ -59,8 +61,8 @@ pizzas.map(pizza => {
     `;
 })
 
-
 $("#productos__container").append(cards)
+
 
 
 // Agrego los eventos de click a los botones de agregar al carrito
@@ -88,27 +90,57 @@ $(document).on("click", ".btn.btn-secondary", (event) => {
     $("#contador__carrito").html(cart.length)
 })
 
-$(document).on("click", "#carrito__borrar", () => {
+
+// Evento de click en el boton de borrar carrito
+$(document).on("click", "#carrito__borrar", (e) => {
     // Borro el carrito
+    console.log('Borrando');
     localStorage.removeItem('cart');
     localStorage.removeItem('price');
     $("#contador__carrito").html(cart.length)
+    console.log('Cart: ', cart.length);
+    location.reload();
 })
 
+
+
+// Evento de click en el boton de finalizar pedido
 $(document).on("click", "#carrito__pedir", (e) => {
-    // Muestro el modal de pedido
-    $("#modal__pedido").modal('show');
     // Obtengo el precio total
     let price = parseFloat(localStorage.getItem('price')) || 0;
     alert("Pedido realizado, el total es $" + price);
     // Muestro el precio total
-    $("#modal__pedido__precio").html(price);
     // Borro el carrito
     localStorage.removeItem('cart');
     localStorage.removeItem('price');
     $("#contador__carrito").html(cart.length);
-    // Oculto el modal
-    $("#modal__pedido").modal('hide');
+    location.reload();
+})
+
+
+
+// Evento de click en el boton de ver carrito
+$(document).on("click", "#carrito__detalle", (e) => {
+    // Obtengo el precio total
+    let price = parseFloat(localStorage.getItem('price')) || 0;
+    $("#total__pedido").html("");
+    $("#tabla__pedido").html("");
+    $("#total__pedido").append(`$${price}`)
+    if (localStorage.getItem('cart') != null) {
+
+        JSON.parse(localStorage.getItem('cart')).map(prod => {
+            console.log('Prod: ', prod);
+            let pizza = pizzas.find(o => o.id === prod);
+            $("#tabla__pedido").append(`
+            <tr>
+                <td>${pizza.name}</td>
+                <td>${pizza.name}</td>
+                <td>$${pizza.price}</td>
+            </tr>
+        `)
+        })
+    }
+
 })
 
 
